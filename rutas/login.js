@@ -31,7 +31,7 @@ router.post('/signup', function(req, res) {
             }
         }
         else{
-            res.status(400).send('Usuario Invalido');    
+            return res.status(400).send('Usuario Invalido');    
         }
 
         let paramsx = [  {name: "CategoryId", tipo:"int", valor: 3 },
@@ -44,8 +44,9 @@ router.post('/signup', function(req, res) {
             
             // Generar el token
             let token = sqlServer.GetJwtToken(pass_sha1);
-            menuUser = JSON.parse(resp.output[""])
-            console.log("menu:",menuUser)
+            menuUser = JSON.parse(resp.output[""]);
+            //console.log("menu:",menuUser)
+            //console.log("token:",token)
             res.json({ token: token, menuAdmin, menuUser:menuUser.subRows })
         })
         .catch((error)=>{
